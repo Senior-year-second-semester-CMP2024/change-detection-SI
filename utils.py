@@ -6,6 +6,7 @@ import numpy as np
 import torch
 import torchvision.transforms.functional as TF
 from sklearn.metrics import jaccard_score
+from tqdm import tqdm
 
 def read_data(data_path, data_type, start_idx=0):
     if data_type == 'before':
@@ -142,7 +143,7 @@ def validate_diff(model, test_loader, device, threshold = 0.3):
     true_masks_list = []
 
     with torch.no_grad():
-        for idx, data in enumerate(test_loader):
+        for data in tqdm(test_loader):
             diff_image, label = data
 
             diff_image = diff_image.to(device)
@@ -174,7 +175,7 @@ def validate(model, test_loader, device, threshold = 0.3):
     true_masks_list = []
 
     with torch.no_grad():
-        for idx, data in enumerate(test_loader):
+        for data in tqdm(test_loader):
             before_image, after_image, label = data
 
             before_image = before_image.to(device)
@@ -204,7 +205,7 @@ def predict_diff(model, test_loader, device, threshold = 0.3):
     predicted_masks_list = []
 
     with torch.no_grad():
-        for idx, data in enumerate(test_loader):
+        for data in tqdm(test_loader):
             diff_image,_ = data
             diff_image = diff_image.to(device)
 
@@ -223,7 +224,7 @@ def predict(model, test_loader, device, threshold = 0.3):
     predicted_masks_list = []
 
     with torch.no_grad():
-        for idx, data in enumerate(test_loader):
+        for data in tqdm(test_loader):
             bef_image, af_image, _ = data
             bef_image = bef_image.to(device)
             af_image = af_image.to(device)
