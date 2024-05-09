@@ -262,25 +262,37 @@ def display_predicted_images_diff(diff_images, predicted_masks, true_masks_list)
 
 
 def display_predicted_images(before_images, after_images, predicted_masks, true_masks_list):
-    num_images = min(10, len(before_images))  # Display up to 10 images
+    selected_indices = []  # Indices of images with non-completely black true masks
+    for i, true_mask in enumerate(true_masks_list):
+        # Check if the true mask is not completely black
+        if true_mask.max() > 0:
+            selected_indices.append(i)
+            if len(selected_indices) >= 10:
+                break  # Stop when 10 images are selected
+    
+    num_images = len(selected_indices)
+    if num_images == 0:
+        print("No images found with non-completely black true masks.")
+        return
+
     plt.figure(figsize=(12, 4 * num_images))
 
-    for i in range(num_images):
-        plt.subplot(num_images, 4, i * 4 + 1)
-        plt.title("Difference Image")
-        plt.imshow(TF.to_pil_image(before_images[i])) 
+    for idx, i in enumerate(selected_indices):
+        plt.subplot(num_images, 4, idx * 4 + 1)
+        plt.title("Before Image")
+        plt.imshow(TF.to_pil_image(before_images[i]))
 
-        plt.subplot(num_images, 4, i * 4 + 2)
-        plt.title("Difference Image")
-        plt.imshow(TF.to_pil_image(after_images[i])) 
+        plt.subplot(num_images, 4, idx * 4 + 2)
+        plt.title("After Image")
+        plt.imshow(TF.to_pil_image(after_images[i]))
 
-        plt.subplot(num_images, 4, i * 4 + 3)
+        plt.subplot(num_images, 4, idx * 4 + 3)
         plt.title("Predicted Mask")
-        plt.imshow(TF.to_pil_image(predicted_masks[i]), cmap='gray') 
+        plt.imshow(TF.to_pil_image(predicted_masks[i]), cmap='gray')
 
-        plt.subplot(num_images, 4, i * 4 + 4)
+        plt.subplot(num_images, 4, idx * 4 + 4)
         plt.title("True Mask")
-        plt.imshow(TF.to_pil_image(true_masks_list[i]), cmap='gray') 
+        plt.imshow(TF.to_pil_image(true_masks_list[i]), cmap='gray')
 
     plt.show()
 
