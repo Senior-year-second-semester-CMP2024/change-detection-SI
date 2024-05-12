@@ -2,3 +2,4 @@ __pycache__
 trainval
 256
 saved_models
+testset
