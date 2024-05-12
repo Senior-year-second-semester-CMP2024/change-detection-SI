@@ -8,6 +8,7 @@ The objective is to detect changes between two images in a time series. Both inp
 
 - Python 3
 - PyTorch
+- torchsummary
 - tqdm
 - OpenCV
 - scikit-learn
@@ -23,7 +24,8 @@ conda create -n change-detection python=3.8
 conda activate change-detection
 conda install pytorch torchvision torchaudio cudatoolkit=11.1 -c pytorch -c nvidia -y
 conda install tqdm numpy matplotlib scikit-learn jupyter -y
-pip install opencv-python
+pip install opencv-python -y
+pip install torchsummary -y
 ```
 
 ## Models
