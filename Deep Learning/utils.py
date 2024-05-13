@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 import torchvision.transforms.functional as TF
-# from torchsummary import summary
 from sklearn.metrics import jaccard_score
 from tqdm import tqdm
 
