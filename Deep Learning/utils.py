@@ -310,5 +310,5 @@ def save_predictions(predicted_masks_list, output_dir = "./testset/Predictions/"
     print("Saving predictions")
     for i, pred_mask in enumerate(predicted_masks_list):
         # Save predicted mask image
-        cv2.imwrite(os.path.join(output_dir, f"predicted_mask_{i}.png"), (pred_mask * 255).astype(np.uint8))
+        cv2.imwrite(os.path.join(output_dir, f"{i:04d}.png"), (pred_mask * 255).astype(np.uint8))
     print("Saving Completed")
